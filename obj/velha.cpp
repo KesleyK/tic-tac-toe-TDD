@@ -18,6 +18,16 @@ void showBoard() {
   }
 }
 
+void restartGame() {
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      board[i][j] = 0;
+    }
+  }
+  pushedX = 0;
+  pushedO = 0;
+}
+
 void pushX(char row, char column) {
   board[row - 97][column - 100] = 1;
   ++pushedX;
