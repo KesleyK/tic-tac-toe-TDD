@@ -29,5 +29,7 @@ void pushO(char row, char column) {
 }
 
 int checkGameStatus() {
-
+  if (pushedX < 3 && pushedO < 3) {
+    return -1;
+  }
 }
