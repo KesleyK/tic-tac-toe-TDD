@@ -21,7 +21,7 @@ TEST_CASE("Check undefined games") {
   }
 }
 
-/* <<X WAS THE WINNER>> */
+/* <<'X' WAS THE WINNER. IT ALSO WORKS ON 'O' VALUE>> */
 TEST_CASE("X was the winner by row") {
   SECTION("First row was the winner") {
     restartGame();
@@ -89,5 +89,26 @@ TEST_CASE("X was the winner by diagonal") {
     pushX('b', 'e');
     pushX('c', 'd');
     REQUIRE(checkGameStatus() == 1);
+  }
+}
+
+/* <<CHECK INVALID GAMES>> */
+TEST_CASE("Game was invalid") {
+  WHEN("We insert two or more of one type than the other one - case 'X'") {
+    restartGame();
+    pushO('a', 'e');
+    pushX('a', 'd');
+    pushX('b', 'd');
+    pushX('c', 'd');
+    REQUIRE(checkGameStatus() == -2);
+  }
+
+  WHEN("We insert two or more of one type than the other one - case 'O'") {
+    restartGame();
+    pushX('a', 'e');
+    pushO('a', 'd');
+    pushO('b', 'd');
+    pushO('c', 'd');
+    REQUIRE(checkGameStatus() == -2);
   }
 }

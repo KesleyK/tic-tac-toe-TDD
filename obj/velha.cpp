@@ -29,20 +29,37 @@ void restartGame() {
 }
 
 void pushX(char row, char column) {
-  board[row - 97][column - 100] = 1;
-  ++pushedX;
+  if(board[row - 97][column - 100]) {
+    printf("Error: Spot marked already.\n\n");
+  }
+  else {
+    board[row - 97][column - 100] = 1;
+    ++pushedX;
+  }
 }
 
 void pushO(char row, char column) {
-  board[row - 97][column - 100] = 2;
-  ++pushedO;
+  if(board[row - 97][column - 100]) {
+    printf("Error: Spot marked already.\n\n");
+  }
+  else {
+    board[row - 97][column - 100] = 2;
+    ++pushedO;
+  }
 }
 
 int checkGameStatus() {
+  checkIfUndefined();
+  checkIfWinner();
+}
+
+int checkIfUndefined() {
   if (pushedX < 3 && pushedO < 3) {
     return -1;
   }
+}
 
+int checkIfWinner() {
   if(board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2]) {
     return board[0][2];
   }
