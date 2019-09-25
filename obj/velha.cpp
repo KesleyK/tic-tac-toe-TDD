@@ -27,3 +27,7 @@ void pushO(char row, char column) {
   board[row - 97][column - 100] = 2;
   ++pushedO;
 }
+
+int checkGameStatus() {
+
+}
