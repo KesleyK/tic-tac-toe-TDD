@@ -22,7 +22,7 @@ void insertOption(int optionValue) {
 int main() {
   int switchNumber;
 
-  while (1) {
+  while (checkGameStatus() <= 0) {
     printf(
       "1-Show Board\n"
       "2-Insert X\n"
@@ -45,4 +45,6 @@ int main() {
         break;
     }
   }
+
+  printf("\n%i was the winner!\n", checkGameStatus());
 }
