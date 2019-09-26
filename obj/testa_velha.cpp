@@ -28,6 +28,8 @@ TEST_CASE("X was the winner by row") {
     pushX('a', 'd');
     pushX('a', 'e');
     pushX('a', 'f');
+    pushO('b', 'd');
+    pushO('b', 'e');
     REQUIRE(checkGameStatus() == 1);
   }
 
@@ -36,14 +38,18 @@ TEST_CASE("X was the winner by row") {
     pushX('b', 'd');
     pushX('b', 'e');
     pushX('b', 'f');
+    pushO('a', 'd');
+    pushO('a', 'e');
     REQUIRE(checkGameStatus() == 1);
   }
 
   SECTION("Third row was the winner") {
     restartGame();
-    pushX('b', 'd');
-    pushX('b', 'e');
-    pushX('b', 'f');
+    pushX('c', 'd');
+    pushX('c', 'e');
+    pushX('c', 'f');
+    pushO('b', 'd');
+    pushO('b', 'e');
     REQUIRE(checkGameStatus() == 1);
   }
 }
@@ -54,6 +60,8 @@ TEST_CASE("X was the winner by column") {
     pushX('a', 'd');
     pushX('b', 'd');
     pushX('c', 'd');
+    pushO('a', 'e');
+    pushO('b', 'e');
     REQUIRE(checkGameStatus() == 1);
   }
 
@@ -62,6 +70,8 @@ TEST_CASE("X was the winner by column") {
     pushX('a', 'e');
     pushX('b', 'e');
     pushX('c', 'e');
+    pushO('b', 'd');
+    pushO('b', 'f');
     REQUIRE(checkGameStatus() == 1);
   }
 
@@ -70,6 +80,8 @@ TEST_CASE("X was the winner by column") {
     pushX('a', 'f');
     pushX('b', 'f');
     pushX('c', 'f');
+    pushO('b', 'd');
+    pushO('b', 'e');
     REQUIRE(checkGameStatus() == 1);
   }
 }
@@ -80,6 +92,8 @@ TEST_CASE("X was the winner by diagonal") {
     pushX('a', 'd');
     pushX('b', 'e');
     pushX('c', 'f');
+    pushO('b', 'd');
+    pushO('b', 'f');
     REQUIRE(checkGameStatus() == 1);
   }
 
@@ -88,6 +102,8 @@ TEST_CASE("X was the winner by diagonal") {
     pushX('a', 'f');
     pushX('b', 'e');
     pushX('c', 'd');
+    pushO('b', 'd');
+    pushO('b', 'f');
     REQUIRE(checkGameStatus() == 1);
   }
 }
@@ -110,5 +126,22 @@ TEST_CASE("Game was invalid") {
     pushO('b', 'd');
     pushO('c', 'd');
     REQUIRE(checkGameStatus() == -2);
+  }
+}
+
+/* <<CHECK TIE GAMES>> */
+TEST_CASE("Game was a tie") {
+  WHEN("IT TIES") {
+    restartGame();
+    pushX('a', 'd');
+    pushX('a', 'f');
+    pushX('b', 'f');
+    pushX('c', 'd');
+    pushX('c', 'e');
+    pushO('a', 'e');
+    pushO('b', 'd');
+    pushO('b', 'e');
+    pushO('c', 'f');
+    REQUIRE(checkGameStatus() == 0);
   }
 }
