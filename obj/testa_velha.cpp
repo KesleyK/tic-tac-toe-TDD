@@ -1,3 +1,4 @@
+// "Copyright 2019 Kesley Kenny"
 #define CATCH_CONFIG_MAIN
 #include "../include/catch.hpp"
 #include "../include/velha.hpp"

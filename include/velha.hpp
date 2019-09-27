@@ -1,3 +1,4 @@
+// "Copyright 2019 Kesley Kenny"
 void showBoard();
 void restartGame();
 void pushX(char row, char column);
