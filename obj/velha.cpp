@@ -30,22 +30,44 @@ void restartGame() {
 }
 
 void pushX(char row, char column) {
-  if(board[row - 97][column - 100]) {
-    printf("Error: Spot marked already.\n\n");
+  if (checkValidSpot(row, column)) {
+    if (board[row - 97][column - 100]) {
+      printf("Error: Spot marked already.\n\n");
+    }
+    else {
+      board[row - 97][column - 100] = 1;
+      ++pushedX;
+    }
   }
   else {
-    board[row - 97][column - 100] = 1;
-    ++pushedX;
+    printf("Spot not valid. Please enter a correct value.\n");
   }
 }
 
 void pushO(char row, char column) {
-  if(board[row - 97][column - 100]) {
-    printf("Error: Spot marked already.\n\n");
+  if (checkValidSpot(row, column)) {
+    if (board[row - 97][column - 100]) {
+      printf("Error: Spot marked already.\n\n");
+    }
+    else {
+      board[row - 97][column - 100] = 2;
+      ++pushedO;
+    }
   }
   else {
-    board[row - 97][column - 100] = 2;
-    ++pushedO;
+    printf("Spot not valid. Please enter a correct value\n");
+  }
+}
+
+bool checkValidSpot(char row, char column) {
+  bool verificRow = row < 97 || row > 99;
+  bool verificColumn = column < 100 || column > 102;
+
+  if (!verificRow && !verificColumn) {
+    return true;
+  }
+  else {
+    return false;
   }
 }
 
@@ -54,14 +76,16 @@ int checkGameStatus() {
     printf("Status: Invalid game!\n\n");
     return -2;
   }
-  else if(checkIfUndefined()) {
+  if (checkIfUndefined()) {
     printf("Status: Undefined game!\n\n");
     return -1;
   }
-  else if(checkIfATie()) {
+  if (checkIfATie()) {
+    printf("Status: Game was a tie!\n\n");
     return 0;
   }
-  else if(checkIfWinner() > 0) {
+  if (checkIfWinner() > 0) {
+    printf("Status: %i was the winner!\n\n", checkIfWinner());
     return checkIfWinner();
   }
 }
@@ -76,8 +100,8 @@ bool checkIfInvalid() {
 
 bool checkIfATie() {
   bool verific1 = pushedO == 5 && pushedX == 4;
-  bool verific2 = pushedO == 5 && pushedX == 4;
-  return !checkIfWinner && verific1 || verific2;
+  bool verific2 = pushedO == 4 && pushedX == 5;
+  return checkIfWinner() == -10 && verific1 || verific2;
 }
 
 int checkIfWinner() {
@@ -99,15 +123,13 @@ int checkIfWinner() {
   else if (board[0][0] == board[1][0] && board[0][0] == board[0][0] && board[2][0]) {
     return board[0][0];
   }
-  else if(board[0][1] == board[1][1] && board[0][1] == board[2][1] && board[0][1]) {
+  else if (board[0][1] == board[1][1] && board[0][1] == board[2][1] && board[0][1]) {
     return board[0][1];
   }
   else if (board[0][2] == board[1][2] && board[0][2] == board[2][2] && board[0][2]) {
     return board[0][2];
   }
   else {
-    return 0;
+    return -10;
   }
 }
-
-
